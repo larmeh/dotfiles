@@ -1,0 +1,300 @@
+# Configuration for jigish's slate. I sacrificed conformity with the best practice of 80 characters per line in favor of wide
+# columns so it can be edited more easily using visual block mode.
+config snapshotTitleMatch levenshtein
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+config secondsBetweenRepeat 0.1
+config checkDefaultsOnLoad true
+config focusCheckWidthMax 3000
+
+config windowHintsShowIcons true
+config windowHintsIgnoreHiddenWindows false
+config windowHintsDuration 5
+config windowHintsSpread true
+config windowHintsOrder persist
+config snapshotMaxStackSize 5
+
+alias mon-macbookair 1440x900
+alias mon-benq 1680x1050
+# Those two shabby projectors at work
+alias mon-projector1 800x600
+alias mon-projector2 800x600
+alias mon-work 1280x1024
+alias lg-tv 1920x1080
+alias mon-macbook-pro 1650x1050
+
+# Abstract positions
+alias full move screenOriginX;screenOriginY screenSizeX;screenSizeY
+alias centered move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2 windowSizeX;windowSizeY
+alias lefthalf move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
+alias righthalf move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+alias topleft corner top-left bar-resize:screenSizeX/2;screenSizeY/2
+alias topright corner top-right bar-resize:screenSizeX/2;screenSizeY/2
+alias bottomleft corner bottom-left bar-resize:screenSizeX/2;screenSizeY/2
+alias bottomright corner bottom-right bar-resize:screenSizeX/2;screenSizeY/2
+
+# ShiftIt's functionality
+#
+# TODO: If e.g. left,down+cmd,alt is pressed in order to place a windows in the lower left corner, the
+# action associated with left+cmd,alt is triggered, too. I reckon if there was an action associated
+# with down+cmd,alt would be triggered as well.
+bind right:cmd;alt push right bar-resize:screenSizeX/2
+bind left:cmd;alt push left bar-resize:screenSizeX/2
+bind up:cmd;alt push up bar-resize:screenSizeY/2
+bind down:cmd;alt push down bar-resize:screenSizeY/2
+bind right:down;shift;cmd;alt ${bottomright}
+bind left:down;shift;cmd;alt ${bottomleft}
+bind up:right;shift;cmd;alt ${topright}
+bind up:left;shift;cmd;alt ${topleft}
+# Entire screen
+bind f:cmd;alt ${full}
+bind c:cmd;alt ${centered}
+# Slate doesn't support push accross a monitor's border, so I'm simulating that with throw directives
+bind right:cmd;alt;shift throw right resize:screenSizeX;screenSizeY
+bind left:cmd;alt;shift throw left resize:screenSizeX;screenSizeY
+bind up:cmd;alt;shift throw up resize:screenSizeX;screenSizeY
+bind down:cmd;alt;shift throw resize:screenSizeX;screenSizeY
+
+# Not sure if these all of these are necessary... probably not.
+# TODO: possibly replace with "resize" or "bar-resize".
+#
+#     Name    Value  Window's top left position                                Size                          Monitor alias
+alias 1-im    move  screenOriginX+screenSizeX/5;screenOriginY+screenSizeY/5    screenSizeX/5;screenSizeY/3     ${mon-macbookair}
+alias 1-chat  move  screenOriginX;screenOriginY                                screenSizeX/9;screenSizeY       ${mon-macbookair}
+alias 1-full  move  screenOriginX;screenOriginY                                screenSizeX;screenSizeY         ${mon-macbookair}
+alias 1-main  move  screenOriginX+screenSizeX/9;screenOriginY                  8*screenSizeX/9;screenSizeY     ${mon-macbookair}
+alias 1-mid   move  screenOriginX+screenSizeX/8;screenOriginY+screenSizeY/8    3*screenSizeX/4;3*screenSizeY/4 ${mon-macbookair}
+alias 1-top   move  screenOriginX;screenOriginY                                screenSizeX;screenSizeY/2       ${mon-macbookair}
+alias 1-top-l move  screenOriginX;screenOriginY                                screenSizeX/2;screenSizeY/2     ${mon-macbookair}
+alias 1-top-m move  screenOriginX+screenSizeX/6;screenOriginY                  2*screenSizeX/3;screenSizeY/2   ${mon-macbookair}
+alias 1-top-r move  screenOriginX+screenSizeX/2;screenOriginY                  screenSizeX/2;screenSizeY/2     ${mon-macbookair}
+alias 1-left  move  screenOriginX;screenOriginY                                screenSizeX/2;screenSizeY       ${mon-macbookair}
+alias 1-right move  screenOriginX+screenSizeX/2;screenOriginY                  screenSizeX/2;screenSizeY       ${mon-macbookair}
+
+alias 2-im     move  screenOriginX+screenSizeX/5;screenOriginY+screenSizeY/5   screenSizeX/5;screenSizeY/3     ${mon-benq}
+alias 2-bot    move  screenOriginX;screenOriginY+screenSizeY/2                 screenSizeX;screenSizeY/2       ${mon-benq}
+alias 2-bot-l  move  screenOriginX;screenOriginY+screenSizeY/2                 screenSizeX/3;screenSizeY/2     ${mon-benq}
+alias 2-bot-m  move  screenOriginX+screenSizeX/3;screenOriginY+screenSizeY/2   screenSizeX/3;screenSizeY/2     ${mon-benq}
+alias 2-bot-r  move  screenOriginX+2*screenSizeX/3;screenOriginY+screenSizeY/2 screenSizeX/3;screenSizeY/2     ${mon-benq}
+alias 2-main   move  screenOriginX+screenSizeX/9;screenOriginY                 8*screenSizeX/9;screenSizeY     ${mon-benq}
+alias 2-full   move  screenOriginX;screenOriginY                               screenSizeX;screenSizeY         ${mon-benq}
+alias 2-mid    move  screenOriginX+screenSizeX/8;screenOriginY+screenSizeY/8   3*screenSizeX/4;3*screenSizeY/4 ${mon-benq}
+alias 2-top    move  screenOriginX;screenOriginY                               screenSizeX;screenSizeY/2       ${mon-benq}
+alias 2-top-l  move  screenOriginX;screenOriginY                               screenSizeX/2;screenSizeY/2     ${mon-benq}
+alias 2-top-m  move  screenOriginX+screenSizeX/6;screenOriginY                 2*screenSizeX/3;screenSizeY/2   ${mon-benq}
+alias 2-top-r  move  screenOriginX+screenSizeX/2;screenOriginY                 screenSizeX/2;screenSizeY/2     ${mon-benq}
+alias 2-left   move  screenOriginX;screenOriginY                               screenSizeX/2;screenSizeY       ${mon-benq}
+alias 2-right  move  screenOriginX+screenSizeX/2;screenOriginY                 screenSizeX/2;screenSizeY       ${mon-benq}
+
+alias 3-im     move  screenOriginX+screenSizeX/5;screenOriginY+screenSizeY/5   screenSizeX/5;screenSizeY/3     ${lg-tv}
+alias 3-chat   move  screenOriginX;screenOriginY                               screenSizeX/9;screenSizeY       ${lg-tv}
+alias 3-l-bot  move  screenOriginX;screenOriginY+screenSizeY/2                 screenSizeX/2;screenSizeY/2     ${lg-tv}
+alias 3-full   move  screenOriginX;screenOriginY                               screenSizeX;screenSizeY         ${lg-tv}
+alias 3-l-top  move  screenOriginX;screenOriginY                               screenSizeX/2;screenSizeY/2     ${lg-tv}
+alias 3-main   move  screenOriginX+screenSizeX/9;screenOriginY                 8*screenSizeX/9;screenSizeY     ${lg-tv}
+alias 3-right  move  screenOriginX+screenSizeX/2;screenOriginY                 screenSizeX/2;screenSizeY       ${lg-tv}
+
+# 3 Monitor layout with the air sitting on my desk, connected with both my main monitor and my TV.
+layout macbook_air-homedesk-tv 'Google Chrome':REPEAT ${3-main}
+layout macbook_air-homedesk-tv 'MacVim':REPEAT_LAST ${2-full} | ${2-full} | ${2-full}
+layout macbook_air-homedesk-tv 'GitX':REPEAT ${3-right}
+layout macbook_air-homedesk-tv 'Adium':REPEAT_LAST ${3-chat} | ${3-im}
+#layout macbook_air-homedesk-tv 'Adium':SORT_TITLE,TITLE_ORDER=Kontakte,REPEAT_LAST ${3-chat} | ${3-im}
+layout macbook_air-homedesk-tv 'Xcode':REPEAT ${2-top}
+layout macbook_air-homedesk-tv 'iTunes':REPEAT ${3-main}
+layout macbook_air-homedesk-tv 'Skype':REPEAT ${1-right}
+layout macbook_air-homedesk-tv 'Mail':REPEAT_LAST ${1-full} | ${2-right}
+layout macbook_air-homedesk-tv 'Kalender':REPEAT ${1-full}
+layout macbook_air-homedesk-tv 'Systemeinstellungen':REPEAT ${2-mid}
+layout macbook_air-homedesk-tv 'X-Chat Aqua':REPEAT ${1-left}
+layout macbook_air-homedesk-tv 'Erinnerungen':IGNORE_FAIL,TITLE_ORDER=Erinnerungen ${2-mid}
+layout macbook_air-homedesk-tv 'Notizen':IGNORE_FAIL,TITLE_ORDER=Notizen ${2-mid}
+layout macbook_air-homedesk-tv 'Firefox':REPEAT ${2-full}
+layout macbook_air-homedesk-tv 'Nightly':REPEAT ${2-full}
+layout macbook_air-homedesk-tv 'Adobe Reader':REPEAT ${1-full}
+layout macbook_air-homedesk-tv 'Preview':REPEAT ${1-full}
+layout macbook_air-homedesk-tv 'Vorschau':REPEAT ${1-full}
+layout macbook_air-homedesk-tv 'Finder':REPEAT ${2-left}
+layout macbook_air-homedesk-tv 'Microsoft Word':REPEAT ${2-full}
+layout macbook_air-homedesk-tv 'Microsoft Excel':REPEAT ${2-main}
+layout macbook_air-homedesk-tv 'Mathematica':REPEAT ${2-main}
+layout macbook_air-homedesk-tv 'iPhoto':REPEAT ${2-full}
+layout macbook_air-homedesk-tv 'Xcode':REPEAT ${2-full}
+layout macbook_air-homedesk-tv 'Eclipse':REPEAT ${2-full}
+layout macbook_air-homedesk-tv 'Twitter':REPEAT ${1-full}
+
+# 2 Monitor layout for home use. I.e. the MBA hooked up to the monitor on my desk.
+layout macbook_air-homedesk 'Google Chrome':REPEAT ${1-full}
+layout macbook_air-homedesk 'MacVim':REPEAT ${2-full}
+layout macbook_air-homedesk 'Skype':REPEAT ${1-right}
+layout macbook_air-homedesk 'GitX':REPEAT ${2-left}
+layout macbook_air-homedesk 'Mail':REPEAT_LAST ${1-full} | ${2-right}
+layout macbook_air-homedesk 'Kalender':REPEAT ${1-full}
+layout macbook_air-homedesk 'Systemeinstellungen':REPEAT ${2-mid}
+layout macbook_air-homedesk 'Adium':TITLE_ORDER='Kontakte';'',REPEAT_LAST ${1-chat} | ${2-im}
+layout macbook_air-homedesk 'X-Chat Aqua':REPEAT ${1-left}
+layout macbook_air-homedesk 'Erinnerungen':IGNORE_FAIL,TITLE_ORDER='Erinnerungen' ${2-mid}
+layout macbook_air-homedesk 'Notizen':IGNORE_FAIL,TITLE_ORDER=Notizen ${2-mid}
+layout macbook_air-homedesk 'Firefox':REPEAT ${2-full}
+layout macbook_air-homedesk 'Nightly':REPEAT ${2-full}
+layout macbook_air-homedesk 'Adobe Reader':REPEAT ${1-full}
+layout macbook_air-homedesk 'Preview':REPEAT ${1-full}
+layout macbook_air-homedesk 'Skim':REPEAT IGNORE_FAIL,TITLE_ORDER='diplomarbeit.pdf',REPEAT_LAST ${2-full} | ${1-full}
+layout macbook_air-homedesk 'SourceTree':REPEAT ${2-full}
+layout macbook_air-homedesk 'Vorschau':IGNORE_FAIL,TITLE_ORDER='diplomarbeit.pdf',REPEAT_LAST ${2-full} | ${1-full}
+layout macbook_air-homedesk 'Finder':REPEAT ${2-left}
+layout macbook_air-homedesk 'Microsoft Word':REPEAT ${2-full}
+layout macbook_air-homedesk 'Microsoft Excel':REPEAT ${2-main}
+layout macbook_air-homedesk 'Mathematica':REPEAT ${2-main}
+layout macbook_air-homedesk 'iPhoto':REPEAT ${2-full}
+layout macbook_air-homedesk 'Xcode':REPEAT ${2-full}
+layout macbook_air-homedesk 'Eclipse':REPEAT ${2-full}
+layout macbook_air-homedesk 'iTunes':REPEAT ${1-full}
+layout macbook_air-homedesk 'BlueJ':REPEAT ${1-full}
+layout macbook_air-homedesk 'Twitter':REPEAT ${1-full}
+
+# MacBook Air only
+layout macbook_air-solo 'Google Chrome':REPEAT ${1-full}
+layout macbook_air-solo 'MacVim':REPEAT ${1-full}
+layout macbook_air-solo 'Skype':REPEAT ${1-right}
+layout macbook_air-solo 'GitX':REPEAT ${1-left}
+layout macbook_air-solo 'Mail':REPEAT_LAST ${1-full} | ${1-right}
+layout macbook_air-solo 'Kalender':REPEAT ${1-full}
+layout macbook_air-solo 'Systemeinstellungen':REPEAT ${1-mid}
+layout macbook_air-solo 'Adium':IGNORE_FAIL,TITLE_ORDER=Kontakte,REPEAT_LAST ${1-chat} | ${1-im}
+layout macbook_air-solo 'X-Chat Aqua':REPEAT ${1-left}
+layout macbook_air-solo 'Erinnerungen':IGNORE_FAIL,TITLE_ORDER=Erinnerungen ${1-mid}
+layout macbook_air-solo 'Notizen':IGNORE_FAIL,TITLE_ORDER=Notizen ${1-mid}
+#layout macbook_air-solo 'Firefox':REPEAT ${1-full}
+layout macbook_air-solo 'Firefox':REPEAT ${1-full} push bar-resize: #TODO: change to bar-resize statement
+layout macbook_air-solo 'Nightly':REPEAT ${1-full}
+layout macbook_air-solo 'Adobe Reader':REPEAT ${1-full}
+layout macbook_air-solo 'Skim':REPEAT ${1-full}
+layout macbook_air-solo 'SourceTree':REPEAT ${1-full}
+layout macbook_air-solo 'Preview':REPEAT ${1-full}
+layout macbook_air-solo 'Vorschau':REPEAT ${1-full}
+layout macbook_air-solo 'Finder':REPEAT ${1-left}
+layout macbook_air-solo 'Microsoft Word':REPEAT ${1-full}
+layout macbook_air-solo 'Microsoft Excel':REPEAT ${1-main}
+layout macbook_air-solo 'Mathematica':REPEAT ${1-main}
+layout macbook_air-solo 'iPhoto':REPEAT ${1-full}
+layout macbook_air-solo 'Xcode':REPEAT ${1-full}
+layout macbook_air-solo 'Eclipse':REPEAT ${1-full}
+layout macbook_air-solo 'iTunes':REPEAT ${1-full}
+layout macbook_air-solo 'BlueJ':REPEAT ${1-full}
+layout macbook_air-solo 'Twitter':REPEAT ${1-full}
+
+layout macbook_air-workdesk 'Google Chrome':REPEAT ${1-main}
+layout macbook_air-workdesk 'MacVim':REPEAT ${1-full}
+layout macbook_air-workdesk 'Skype':REPEAT ${1-right}
+layout macbook_air-workdesk 'GitX':REPEAT ${1-left}
+layout macbook_air-workdesk 'Mail':REPEAT_LAST ${1-full} | ${1-left}
+layout macbook_air-workdesk 'Kalender':REPEAT ${1-full}
+layout macbook_air-workdesk 'Systemeinstellungen':REPEAT ${1-mid}
+layout macbook_air-workdesk 'Adium':IGNORE_FAIL,TITLE_ORDER=Kontakte,REPEAT_LAST ${1-chat} | ${1-im}
+layout macbook_air-workdesk 'X-Chat Aqua':REPEAT ${1-left}
+layout macbook_air-workdesk 'Erinnerungen':IGNORE_FAIL,TITLE_ORDER=Erinnerungen ${1-mid}
+layout macbook_air-workdesk 'Notizen':IGNORE_FAIL,TITLE_ORDER=Notizen ${1-mid}
+layout macbook_air-workdesk 'Firefox':REPEAT ${1-full}
+layout macbook_air-workdesk 'Nightly':REPEAT ${1-full}
+layout macbook_air-workdesk 'Adobe Reader':REPEAT ${1-full}
+layout macbook_air-workdesk 'Preview':REPEAT ${1-full}
+layout macbook_air-workdesk 'Skim':REPEAT ${2-full}
+layout macbook_air-workdesk 'SourceTree':REPEAT ${2-full}
+layout macbook_air-workdesk 'Finder':REPEAT ${1-left}
+layout macbook_air-workdesk 'Microsoft Word':REPEAT ${2-full}
+layout macbook_air-workdesk 'Microsoft Excel':REPEAT ${1-main}
+layout macbook_air-workdesk 'Mathematica':REPEAT ${1-main}
+layout macbook_air-workdesk 'iPhoto':REPEAT ${1-full}
+layout macbook_air-workdesk 'Xcode':REPEAT ${1-full}
+layout macbook_air-workdesk 'Eclipse':REPEAT ${1-full}
+layout macbook_air-workdesk 'iTunes':REPEAT ${1-full}
+layout macbook_air-workdesk 'Plex':REPEAT ${1-main}
+layout macbook_air-workdesk 'BlueJ':REPEAT ${1-full}
+layout macbook_air-workdesk 'Vorschau':IGNORE_FAIL,TITLE_ORDER='diplomarbeit.pdf',REPEAT_LAST ${1-full} | ${full} ${mon-work}
+layout macbook_air-workdesk 'Twitter':REPEAT ${1-full}
+
+layout macbook_air-projector 'Google Chrome':REPEAT ${1-full}
+layout macbook_air-projector 'MacVim':REPEAT ${1-full}
+layout macbook_air-projector 'Skype':REPEAT ${1-right}
+layout macbook_air-projector 'GitX':REPEAT ${1-left}
+layout macbook_air-projector 'Mail':REPEAT_LAST ${1-full} | ${1-right}
+layout macbook_air-projector 'Kalender':REPEAT ${1-full}
+layout macbook_air-projector 'Systemeinstellungen':REPEAT ${1-mid}
+layout macbook_air-projector 'Adium':IGNORE_FAIL,TITLE_ORDER=Kontakte,REPEAT_LAST ${1-chat} | ${1-im}
+layout macbook_air-projector 'X-Chat Aqua':REPEAT ${1-left}
+layout macbook_air-projector 'Erinnerungen':IGNORE_FAIL,TITLE_ORDER=Erinnerungen ${1-mid}
+layout macbook_air-projector 'Notizen':IGNORE_FAIL,TITLE_ORDER=Notizen ${1-mid}
+layout macbook_air-projector 'Firefox':REPEAT ${1-full}
+layout macbook_air-projector 'Nightly':REPEAT ${1-full}
+layout macbook_air-projector 'Adobe Reader':REPEAT ${1-full}
+layout macbook_air-projector 'Preview':REPEAT ${1-full}
+layout macbook_air-projector 'Skim':REPEAT ${1-full}
+layout macbook_air-projector 'SourceTree':REPEAT ${1-full}
+layout macbook_air-projector 'Vorschau':REPEAT ${1-full}
+layout macbook_air-projector 'Finder':REPEAT ${1-left}
+layout macbook_air-projector 'Microsoft Word':REPEAT ${1-full}
+layout macbook_air-projector 'Microsoft Excel':REPEAT ${1-main}
+layout macbook_air-projector 'Mathematica':REPEAT ${1-main}
+layout macbook_air-projector 'iPhoto':REPEAT ${1-full}
+layout macbook_air-projector 'Xcode':REPEAT ${1-full}
+layout macbook_air-projector 'Eclipse':REPEAT ${1-full}
+layout macbook_air-projector 'iTunes':REPEAT ${1-full}
+layout macbook_air-projector 'BlueJ':REPEAT ${2-full}
+layout macbook_air-projector 'Vorschau':IGNORE_FAIL,TITLE_ORDER='diplomarbeit.pdf',REPEAT_LAST ${1-full}
+layout macbook_air-projector 'Twitter':REPEAT ${1-full}
+
+
+# Screenlayout at home with external display plus TV
+layout macbook_air-homedesk-tv 'Plex':REPEAT ${3-main}
+
+# Activate default layout for matching resolutions
+default macbook_pro-solo resolutions:${mon-macbook-pro}
+default macbook_pro-homedesk    resolutions:${mon-macbook-pro};${mon-benq}
+default macbook_pro-workdesk    resolutions:${mon-macbook-pro};${mon-work};
+default macbook_pro-homedesk-tv resolutions:${mon-macbookair};${mon-benq};${lg-tv}
+default macbook_pro-projector   resolutions:${mon-projector1};${mon-macbook-pro}
+default macbook_pro-projector   resolutions:${mon-projector2};${mon-macbook-pro}
+
+default macbook_air-solo resolutions:${mon-macbookair}
+default macbook_air-homedesk    resolutions:${mon-macbookair};${mon-benq}
+default macbook_air-workdesk    resolutions:${mon-macbookair};${mon-work};
+default macbook_air-homedesk-tv resolutions:${mon-macbookair};${mon-benq};${lg-tv}
+default macbook_air-projector   resolutions:${mon-projector1};${mon-macbookair}
+default macbook_air-projector   resolutions:${mon-projector2};${mon-macbookair}
+
+# Calls snapshot
+bind 1:cmd;alt activate-snapshot snapshot-macbook_air-solo
+bind 2:cmd;alt activate-snapshot snapshot-macbook_air-homedesk
+bind 3:cmd;alt activate-snapshot snapshot-macbook_air-workdesk
+bind 4:cmd;alt activate-snapshot snapshot-macbook_air-projector
+bind 5:cmd;alt activate-snapshot snapshot-macbook_air-homedesk-tv
+
+# Sets snapshot
+bind 1:cmd;alt;shift snapshot snapshot-macbook_air-solo save-to-disk;stack
+bind 2:cmd;alt;shift snapshot snapshot-macbook_air-homedesk save-to-disk;stack
+bind 3:cmd;alt;shift snapshot snapshot-macbook_air-workdesk save-to-disk;stack
+bind 4:cmd;alt;shift snapshot snapshot-macbook_air-projector save-to-disk;stack
+bind 5:cmd;alt;shift snapshot snapshot-macbook_air-homedesk-tv save-to-disk;stack
+
+# Calls specific layout according to user input
+bind q:cmd;alt layout macbook_air-solo
+bind w:cmd;alt layout macbook_air-homedesk
+bind e:cmd;alt layout macbook_air-workdesk
+bind r:cmd;alt layout macbook_air-projector
+bind t:cmd;alt layout macbook_air-homedesk-tv
+
+# Shows grid
+bind g:cmd;alt grid padding:5 0:6,2 1:8,3
+
+bind l:cmd;alt shell wait path:~/bin '/Volumes/Daten/Users/larmeh/bin/displaysleep'
+
+# Shows window hints
+bind esc:cmd hint
+
+# Switch currently doesn't work well so I'm commenting it out until I fix it.
+#bind tab:cmd switch
+
+# Test Cases
+source .slate.test if_exists

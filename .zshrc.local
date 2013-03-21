@@ -1,0 +1,6 @@
+alias d="cd ~/Documents/Studium/Diplomarbeit/"
+alias turd="ssh -l larmeh turdflower.dyndns.org"
+alias homebase="ssh -l larmeh larmeh.ath.cx"
+alias lo="displaysleep"
+alias vr="vim ~/.vimrc"
+alias awe="cd ~/Documents/Studium/workspace_semester_13/awe13_01"
